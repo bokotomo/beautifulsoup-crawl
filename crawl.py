@@ -11,13 +11,28 @@ class CrawlWebPage:
     '''
     表示
     '''
+    self.download_img()
     class_name = "clearfix"
     res = self.get_all_class(class_name)
     for v in res:
       print(v)
       print("-------")
 
-  def get_all_class(self, class_name):
+  def download_img(self):
+    '''
+    画像のダウンロード
+    '''
+    col = []
+    path = "./downloads/"
+    res = self.soup.find_all("img")
+    for v in res:
+      src = v["src"]
+      col.append(src)
+    for v in col:
+      image = urllib.URLopener()
+      image.retrieve(self.url+"/"+v, path+"b.png")
+  
+  def get_all_class(self, class_name=""):
     '''
     class一覧からタグ一覧を取得
     '''
